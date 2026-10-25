@@ -1,0 +1,91 @@
+<Window x:Class="Shush.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Shush" Width="1260" Height="720"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True"
+        Left="30" Top="30" FontFamily="Segoe UI" FontSize="15"
+        UseLayoutRounding="True" SnapsToDevicePixels="True">
+    <Grid x:Name="Root" TextElement.Foreground="{DynamicResource TextBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- sidebar -->
+        <Border x:Name="Side" Grid.Column="0" CornerRadius="16" Margin="0,0,12,0" BorderThickness="1"
+                Background="{DynamicResource SideBrush}" BorderBrush="{DynamicResource LineBrush}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid x:Name="LogoDrag" Grid.Row="0" Background="Transparent" Margin="18,18,10,18"
+                      MouseLeftButtonDown="Title_Down" Cursor="SizeAll">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Border Width="40" Height="40" CornerRadius="11" Background="{DynamicResource AccentBrush}">
+                            <TextBlock Text="x_x" Foreground="White" FontWeight="Bold" FontSize="14"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                            <TextBlock Text="SHUSH" FontSize="21" FontWeight="Bold"/>
+                            <TextBlock Text="MACRO TOOL" FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource AccentBrush}"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-8,0,0">
+                        <!-- icons are set from code (MainWindow.xaml.cs) so this file has no encoded characters -->
+                        <Button x:Name="MinBtn" Style="{StaticResource WinBtn}" Click="Min_Click" Width="28" Height="28"/>
+                        <Button x:Name="CloseBtn" Style="{StaticResource WinBtn}" Click="Close_Click" Width="28" Height="28"/>
+                    </StackPanel>
+                </Grid>
+
+                <StackPanel x:Name="NavHost" Grid.Row="1" Margin="12,0,12,0"/>
+                <TextBlock Grid.Row="2" Text="MISC" FontSize="12" FontWeight="SemiBold"
+                           Foreground="{DynamicResource MutedBrush}" Margin="24,20,0,8"/>
+                <StackPanel x:Name="MiscHost" Grid.Row="3" Margin="12,0,12,0"/>
+
+                <StackPanel Grid.Row="5" Margin="16,0,16,16">
+                    <Button x:Name="StartBtn" Height="54" Style="{StaticResource StartBtn}" Click="Start_Click">
+                        <TextBlock x:Name="StartText" Text="Start Macro" FontSize="17" FontWeight="Bold"/>
+                    </Button>
+                    <TextBlock x:Name="HintText" FontSize="12" Foreground="{DynamicResource MutedBrush}"
+                               HorizontalAlignment="Center" Margin="0,10,0,0"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- floating pages -->
+        <Grid Grid.Column="1">
+            <ScrollViewer x:Name="PageScroll" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                <Grid>
+                    <WrapPanel x:Name="CardsHost" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <WrapPanel x:Name="SettingsHost" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Collapsed"/>
+                    <WrapPanel x:Name="ProfilesHost" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Collapsed"/>
+                </Grid>
+            </ScrollViewer>
+
+            <Border x:Name="ToastBox" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,6,0"
+                    CornerRadius="10" Padding="16,10" Background="#0F2418" BorderBrush="#2FBF6B" BorderThickness="1"
+                    Visibility="Collapsed">
+                <TextBlock x:Name="ToastText" Foreground="#3DDC84" FontSize="14"/>
+            </Border>
+
+            <!-- key setup wizard -->
+            <Border x:Name="Wizard" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Width="440" CornerRadius="16" Padding="26,22" BorderThickness="1"
+                    Background="{DynamicResource CardBrush}" BorderBrush="{DynamicResource AccentBrush}">
+                <StackPanel>
+                    <TextBlock x:Name="WizTitle" FontSize="19" FontWeight="SemiBold"/>
+                    <TextBlock x:Name="WizBody" TextWrapping="Wrap" FontSize="17" Margin="0,14,0,0" LineHeight="26"/>
+                    <TextBlock Text="Esc = skip this one" FontSize="12" Foreground="{DynamicResource MutedBrush}" Margin="0,10,0,0"/>
+                    <Button Style="{StaticResource FlatBtn}" Content="Cancel" HorizontalAlignment="Left" Margin="0,16,0,0" Click="Wiz_Cancel"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
